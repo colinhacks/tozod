@@ -1,6 +1,4 @@
-<p align="center">
-  <h3>toZod</h3>
-</p>
+<h1 align="center">toZod</h1>
 
 `toZod` is a utility for defining Zod schemas that agree with a TypeScript type.
 
