@@ -2,13 +2,23 @@
   <h3>toZod</h3>
 </p>
 
-⚠ Requires TypeScript 3.9+ and `"strictNullChecks": true` ⚠
-
 `toZod` is a utility for defining Zod schemas that agree with a TypeScript type.
 
 This it the inverse how Zod typically works. By chaining and composing its built-in methods, Zod is able to build up an inferred static type for your schema. This is the opposite: `toZod` "infers" the structure of a Zod schema from a TS type.
 
+## Installation
+
 ```ts
+yarn add tozod
+```
+
+⚠ Requires TypeScript 3.9+ and `"strictNullChecks": true` ⚠
+
+## Usage
+
+```ts
+import { toZod } from 'tozod';
+
 type Player = {
   name: string;
   age?: number | undefined;
@@ -24,7 +34,7 @@ export const Player: toZod<Player> = z.object({
 
 Getting rid of any of these method calls will throw a TypeError.
 
-![tozod type error screenshot](https://i.imgur.com/RR1i6F1.png)
+![tozod type error screenshot](https://i.imgur.com/XWdXWRw.png)
 
 This gets extremely exciting when you start using it on recursive or mutually recursive types.
 
