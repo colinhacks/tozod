@@ -3986,7 +3986,7 @@ yargs@^15.0.0:
     y18n "^4.0.0"
     yargs-parser "^18.1.0"
 
-zod@^1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-1.9.1.tgz#fe839dcd955b769cf0bfdbfd8624c7b21fcf2670"
-  integrity sha512-nyL0a3IUCfjjFHcYYzWJhcohdvqAFkZK0rMKSTtFxc4cFfo5cJc+cLznTs07RtbswNQfOfJYz53dOUmHtKpmcg==
+zod@^1.11.8:
+  version "1.11.8"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-1.11.8.tgz#5e6b2eb3114c73d5043889fa9dfbab0b60a93ff6"
+  integrity sha512-iusmIB00ll0Fxzyhrp8EJPaJDTSyQMKMCwk2hH2XrtgY/QcygPJTX13fSof/r7b4hL5cBeN5aeVl6WN1xpr90g==
