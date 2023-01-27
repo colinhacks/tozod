@@ -5,12 +5,20 @@ type Player = {
   name: string;
   age?: number | undefined;
   active: boolean | null;
+  type: PlayerType;
 };
+
+// test mixed number and string enum
+enum PlayerType {
+  Attacker,
+  Defender = 'Defender'
+}
 
 export const Player: toZod<Player> = z.object({
   name: z.string(),
   age: z.number().optional(),
   active: z.boolean().nullable(),
+  type: z.nativeEnum(PlayerType),
 });
 
 type User = {
