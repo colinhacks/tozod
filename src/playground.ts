@@ -1,31 +1,18 @@
 import * as z from 'zod';
 import { toZod } from '.';
 
-type Player = {
-  name: string;
-  age?: number | undefined;
-  active: boolean | null;
-  type: PlayerType;
-};
-
-// test mixed number and string enum
-enum PlayerType {
-  Attacker,
-  Defender = 'Defender'
+enum UserType {
+  Guest = 'guest',
+  Standard = 'standard',
+  Admin = 'admin'
 }
-
-export const Player: toZod<Player> = z.object({
-  name: z.string(),
-  age: z.number().optional(),
-  active: z.boolean().nullable(),
-  type: z.nativeEnum(PlayerType),
-});
 
 type User = {
   name: string;
   age?: number | undefined;
   active: boolean | null;
   posts: Post[];
+  type: UserType;
 };
 
 type Post = {
@@ -41,8 +28,8 @@ const User: toZod<User> = z.late.object(() => ({
     .refine(() => false, 'asdf'),
   age: z.number().optional(),
   active: z.boolean().nullable(),
-
   posts: z.array(Post),
+  type: z.nativeEnum(UserType)
 }));
 
 const Post: toZod<Post> = z.late.object(() => ({
@@ -50,4 +37,3 @@ const Post: toZod<Post> = z.late.object(() => ({
   author: User,
 }));
 
-console.log(User.shape.posts.element.shape.author);
