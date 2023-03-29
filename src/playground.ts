@@ -1,11 +1,15 @@
 import * as z from 'zod';
 import { toZod } from '.';
 
+// native enum
 enum UserType {
   Guest = 'guest',
   Standard = 'standard',
-  Admin = 'admin'
+  Admin = 0
 }
+
+// zod enum
+const StatusType = z.enum(['active', 'inactive', 'pending']);
 
 type User = {
   name: string;
@@ -13,6 +17,7 @@ type User = {
   active: boolean | null;
   posts: Post[];
   type: UserType;
+  status: z.infer<typeof StatusType>;
 };
 
 type Post = {
@@ -29,11 +34,12 @@ const User: toZod<User> = z.late.object(() => ({
   age: z.number().optional(),
   active: z.boolean().nullable(),
   posts: z.array(Post),
-  type: z.nativeEnum(UserType)
+  type: z.nativeEnum(UserType),
+  status: StatusType,
 }));
 
-const Post: toZod<Post> = z.late.object(() => ({
+const Post: toZod<Post> = z.object({
   content: z.string(),
   author: User,
-}));
+});
 
