@@ -1,6 +1,18 @@
 import * as z from 'zod';
 import { toZod } from '.';
 
+type Player = {
+  name: string;
+  age?: number | undefined;
+  active: boolean | null;
+};
+
+export const Player: toZod<Player> = z.object({
+  name: z.string(),
+  age: z.number().optional(),
+  active: z.boolean().nullable(),
+});
+
 // native enum
 enum UserType {
   Admin = 'admin',
