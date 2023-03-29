@@ -3,9 +3,8 @@ import { toZod } from '.';
 
 // native enum
 enum UserType {
-  Guest = 'guest',
-  Standard = 'standard',
-  Admin = 0
+  Admin = 'admin',
+  Standard = 'standard'
 }
 
 // zod enum
