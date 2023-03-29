@@ -49,8 +49,8 @@ const User: toZod<User> = z.late.object(() => ({
   status: StatusType,
 }));
 
-const Post: toZod<Post> = z.object({
+const Post: toZod<Post> = z.late.object(() => ({
   content: z.string(),
   author: User,
-});
+}));
 
