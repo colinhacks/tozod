@@ -9,15 +9,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/vriad/tozod"
+    "url": "https://github.com/colinhacks/tozod"
   },
   "author": "Colin McDonnell <colin@vriad.com>",
   "license": "MIT",
   "sideEffects": false,
   "bugs": {
-    "url": "https://github.com/vriad/tozod/issues"
+    "url": "https://github.com/colinhacks/tozod/issues"
   },
-  "homepage": "https://github.com/vriad/tozod",
+  "homepage": "https://github.com/colinhacks/tozod",
   "dependencies": {},
   "scripts": {
     "clean": "rm -rf lib/*",
@@ -40,10 +40,10 @@
     "ts-node": "^10.9.1",
     "tslint": "^6.1.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^4.0.0-dev.20200717",
-    "zod": "^1.11.8"
+    "typescript": "~4.5.0",
+    "zod": "^3.21.4"
   },
   "peerDependencies": {
-    "zod": "^1.9.1"
+    "zod": "^3.21.4"
   }
 }
