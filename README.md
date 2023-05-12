@@ -23,7 +23,7 @@ type Player = {
   active: boolean | null;
 };
 
-export const Player: toZod<Player> = z.object({
+export const playerSchema: toZod<Player> = z.object({
   name: z.string(),
   age: z.number().optional(),
   active: z.boolean().nullable(),
@@ -50,7 +50,7 @@ type Post = {
   author: User;
 };
 
-export const User: toZod<User> = z.late.object(() => ({
+export const userSchema: toZod<User> = z.late.object(() => ({
   id: z.string().uuid(), // refinements are fine
   name: z.string(),
   age: z.number().optional(),
@@ -58,9 +58,9 @@ export const User: toZod<User> = z.late.object(() => ({
   posts: z.array(Post),
 }));
 
-export const Post: toZod<Post> = z.late.object(() => ({
+export const postSchema: toZod<Post> = z.late.object(() => ({
   content: z.string(),
-  author: User,
+  author: userSchema,
 }));
 ```
 
@@ -69,15 +69,15 @@ export const Post: toZod<Post> = z.late.object(() => ({
 You've just implemented two mutually recursive validatators with accurate static and runtime type information. So you can use Zod's built-in object methods to derive variants of these schemas:
 
 ```ts
-const CreateUserInput = User.omit({ id: true, posts: true });
-const PostIdOnly = Post.pick({ id: true });
-const UpdateUserInput = User.omit({ id: true }).partial().extend({ id: z.string()u });
+const createUserInputSchema = userSchema.omit({ id: true, posts: true });
+const postIdOnlySchema = postSchema.pick({ id: true });
+const updateUserInputSchema = userSchema.omit({ id: true }).partial().extend({ id: z.string() });
 ```
 
 And because the TypeScript engine knows the exact shape of the Zod schema internally, you can access its internals like so:
 
 ```ts
-User.shape.posts.element.shape.author;
+userSchema.shape.posts.element.shape.author;
 ```
 
 <!-- As far as I know this is the first time any validation library has supported a recursive object schema that still gives you access to all the methods you'd want. -->
