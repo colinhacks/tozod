@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import { z } from 'zod';
 
 type isAny<T> = [any extends T ? 'true' : 'false'] extends ['true'] ? true : false;
 type nonoptional<T> = T extends undefined ? never : T;
@@ -7,15 +7,16 @@ type equals<X, Y> = [X] extends [Y] ? ([Y] extends [X] ? true : false) : false;
 
 export type toZod<T> = {
   any: never;
-  optional: z.ZodUnion<[toZod<nonoptional<T>>, z.ZodUndefined]>;
-  nullable: z.ZodUnion<[toZod<nonnullable<T>>, z.ZodNull]>;
-  array: T extends Array<infer U> ? z.ZodArray<toZod<U>> : never;
-  string: z.ZodString;
-  bigint: z.ZodBigInt;
-  number: z.ZodNumber;
-  boolean: z.ZodBoolean;
-  date: z.ZodDate;
-  object: z.ZodObject<{ [k in keyof T]: toZod<T[k]> }, { strict: true }, T>;
+  optional: z.ZodOptional<toZod<nonoptional<T>>>;
+  nullable: z.ZodNullable<toZod<nonnullable<T>>>;
+  array: T extends Array<infer U> ? z.ZodArray<toZod<U>> | z.ZodDefault<z.ZodArray<toZod<U>>> : never;
+  string: z.ZodString | z.ZodDefault<z.ZodString>;
+  bigint: z.ZodBigInt | z.ZodDefault<z.ZodBigInt>;
+  number: z.ZodNumber | z.ZodDefault<z.ZodNumber>;
+  boolean: z.ZodBoolean | z.ZodDefault<z.ZodBoolean>;
+  date: z.ZodDate | z.ZodDefault<z.ZodDate>;
+  object: z.ZodObject<{ [k in keyof T]: toZod<T[k]> }>;
+
   rest: never;
 }[zodKey<T>];
 
